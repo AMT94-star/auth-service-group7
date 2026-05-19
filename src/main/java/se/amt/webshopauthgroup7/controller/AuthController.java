@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import se.amt.webshopauthgroup7.dto.AuthResponse;
+import se.amt.webshopauthgroup7.dto.LoginRequest;
 import se.amt.webshopauthgroup7.dto.RegisterRequest;
 import se.amt.webshopauthgroup7.service.AuthService;
 
@@ -18,5 +19,10 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public AuthResponse register(@Valid @RequestBody RegisterRequest registerRequest) {
         return authService.registerUser(registerRequest);
+    }
+
+    @PostMapping("/login")
+    public AuthResponse login(@Valid @RequestBody LoginRequest loginRequest) {
+        return authService.loginUser(loginRequest);
     }
 }

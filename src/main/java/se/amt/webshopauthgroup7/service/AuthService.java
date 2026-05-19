@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.amt.webshopauthgroup7.dto.AuthResponse;
+import se.amt.webshopauthgroup7.dto.LoginRequest;
 import se.amt.webshopauthgroup7.dto.RegisterRequest;
 import se.amt.webshopauthgroup7.model.Role;
 import se.amt.webshopauthgroup7.model.User;
@@ -29,5 +30,16 @@ public class AuthService {
 
         userRepository.save(user);
         return new AuthResponse("token will be added later");
+    }
+
+    public AuthResponse loginUser(LoginRequest loginRequest) {
+        User user = userRepository.findByUsername(loginRequest.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not valid"));
+
+        //om lösen ej matchar
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Incorrect password");
+        }
+        return new AuthResponse("Login successful");
     }
 }

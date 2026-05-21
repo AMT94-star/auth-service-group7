@@ -1,5 +1,5 @@
-LABEL authors="Asli"
 FROM eclipse-temurin:21
+LABEL authors="Asli"
 
 WORKDIR /app
 

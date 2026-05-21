@@ -1,13 +1,13 @@
 package se.amt.webshopauthgroup7.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import se.amt.webshopauthgroup7.model.User;
+import se.amt.webshopauthgroup7.model.AppUser;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
-    Optional<User> findByUsername(String username);
+    Optional<AppUser> findByUsername(String username);
 
     boolean existsByUsername(String username);
 }

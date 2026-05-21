@@ -1,10 +1,11 @@
 package se.amt.webshopauthgroup7.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.util.List;
 
-@Getter
-@AllArgsConstructor
-public class AuthResponse {
-    private String token;
+public record AuthResponse(
+        String accessToken,
+        long expiresIn,
+        String username,
+        List<String> roles
+) {
 }

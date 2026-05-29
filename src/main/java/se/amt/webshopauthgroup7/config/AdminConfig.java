@@ -1,5 +1,9 @@
 package se.amt.webshopauthgroup7.config;
 
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -29,5 +33,20 @@ public class AdminConfig {
                 appUserRepository.save(admin);
             }
         };
+    }
+
+    //lägga till authorize i swagger för admin access till appusers
+    @Bean
+    public OpenAPI customOpenAPI() {
+        String securityName = "bearerAuth";
+
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement().addList(securityName))
+                .components(new Components()
+                        .addSecuritySchemes(securityName, new SecurityScheme()
+                                .name(securityName)
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")));
     }
 }
